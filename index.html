@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wadia Belbach</title>
+<link rel="artifact-thumbnail" href="thumb.jpg">
+<meta name="description" content="Wadia Belbach, filmmaker, photographer, editor and colorist based in Nashville, TN.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,500&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE: artsy, quiet confidence. Each film is its own world; the site is a colorist's sketchbook.
+IDEA: a color script. Every project gets its own palette pulled from Wadia's grades, and the nav is that strip of colors.
+PICTURE: his frames, full bleed, with one physical element per world (drifting bokeh for Interlude, a growing sun for 820).
+COLOUR and TYPE: per world. Interlude: night ink, plum, sodium amber, Cormorant italic. 820: kitchen teal, sun orange, wide Archivo.
+LAYOUT: cold open, Interlude editorial spread, 820 sun reveal + countdown, color script fixed at the bottom.
+*/
+:root{color-scheme:dark;--bg:#07080c;--ink:#ece6da;--dim:#ece6da99;--acc:#e8a25a;--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip;transition:background-color 1.4s var(--ease),color 1.4s var(--ease);-webkit-font-smoothing:antialiased}
+body[data-w=interlude]{--bg:#0b0d15;--ink:#ece4d8;--dim:#ece4d899;--acc:#e8a25a}
+body[data-w=s820]{--bg:#1d3331;--ink:#e6eee9;--dim:#e6eee9a6;--acc:#e5722c}
+body[data-w=belle]{--bg:#e8decd;--ink:#16323b;--dim:#16323ba6;--acc:#2f7f9a}
+body[data-w=fb]{--bg:#0c0e0c;--ink:#efe8d4;--dim:#efe8d499;--acc:#cfae6c}
+body[data-w=whr]{--bg:#f2f5f9;--ink:#232830;--dim:#23283099;--acc:#8c929b}
+body[data-w=ed]{--bg:#dccbb3;--ink:#2a1c12;--dim:#2a1c12a6;--acc:#a8512c}
+body[data-w=credits]{--bg:#050505;--ink:#f0eee9;--dim:#f0eee980;--acc:#f0eee9}
+img,video{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:1.5px solid var(--acc);outline-offset:4px}
+.wrap{max-width:1360px;margin:0 auto;padding:0 max(4vw,18px)}
+
+/* top mark */
+.mark{position:fixed;top:18px;left:max(4vw,18px);z-index:30;font:500 15px/1 Inter;letter-spacing:.01em;color:#fff;mix-blend-mode:difference;text-decoration:none}
+.role{position:fixed;top:18px;right:calc(max(4vw,18px) + 128px);white-space:nowrap;z-index:30;font-size:13px;color:#fff;mix-blend-mode:difference;opacity:.8}
+
+/* cold open */
+.cold{position:relative;height:100svh;min-height:520px;background:#000;overflow:hidden}
+.cold video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 2.4s ease}
+.cold video.on{opacity:1}
+.cold .nm{position:absolute;left:0;right:0;bottom:16vh;text-align:center;font:italic 400 clamp(40px,6vw,88px)/1 "Cormorant Garamond",Georgia,serif;color:#f4ece0;letter-spacing:.01em;opacity:0;transform:translateY(10px);transition:opacity 2s ease 1.6s,transform 2s var(--ease) 1.6s}
+.cold.go .nm{opacity:1;transform:none}
+.cold .hint{position:absolute;left:50%;bottom:8vh;transform:translateX(-50%);font-size:12px;color:#fff9;letter-spacing:.2em;text-transform:lowercase;opacity:0;transition:opacity 1.5s ease 3s}
+.cold.go .hint{opacity:1}
+
+/* bokeh */
+#bokeh{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.6s ease}
+body[data-w=interlude] #bokeh,body[data-w=whr] #bokeh,body[data-w=ed] #bokeh{opacity:1}
+body[data-w=whr] #bokeh,body[data-w=ed] #bokeh{z-index:20}
+main,section{position:relative;z-index:1}
+
+/* frames */
+.fr{position:relative;overflow:hidden;cursor:zoom-in;display:block;width:100%}
+.fr img{width:100%;height:100%;object-fit:cover;filter:blur(14px) brightness(1.7) saturate(1.3);transform:scale(1.06);opacity:0;transition:filter 2s var(--ease),transform 2.4s var(--ease),opacity 1.2s ease}
+.fr.in img{filter:none;transform:none;opacity:1}
+@media(hover:hover) and (pointer:fine){.fr{cursor:none}}
+
+/* interlude */
+.il{padding:clamp(100px,14vw,200px) 0 clamp(80px,10vw,140px)}
+.il-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px;margin-bottom:clamp(40px,6vw,80px)}
+.il h2{font:italic 400 clamp(84px,15vw,240px)/.8 "Cormorant Garamond",Georgia,serif;margin:0;letter-spacing:-.02em}
+.il .sub{font:italic 400 clamp(20px,2vw,26px)/1.3 "Cormorant Garamond",Georgia,serif;color:var(--dim);text-align:right}
+.il .sub b{font-weight:500;color:var(--acc);font-style:normal;font-family:Inter;font-size:13px;letter-spacing:.18em;display:block;margin-bottom:6px}
+.il-g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(14px,2vw,28px);align-items:start}
+.il-g .a{grid-column:1/13;aspect-ratio:2.39/1}
+.il-g .b{grid-column:1/8;aspect-ratio:4/3;margin-top:clamp(20px,4vw,60px)}
+.il-g .cr{grid-column:9/13;align-self:end;padding-bottom:10px}
+.il-g .c{grid-column:5/13;aspect-ratio:16/9;margin-top:clamp(30px,6vw,90px)}
+.il-g .d{grid-column:1/7;aspect-ratio:16/9;margin-top:clamp(30px,5vw,70px)}
+.il-g .e{grid-column:7/13;aspect-ratio:16/9;margin-top:clamp(90px,12vw,170px)}
+.cap{font:italic 400 15px/1.4 "Cormorant Garamond",Georgia,serif;color:var(--dim);margin-top:10px}
+.credits{font-size:14px;line-height:1.5}
+.credits div{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid color-mix(in srgb,var(--ink) 16%,transparent)}
+.credits span:first-child{color:var(--dim)}
+.credits span:last-child{text-align:right}
+.credits .t{font:italic 400 24px/1.2 "Cormorant Garamond",Georgia,serif;border:0;padding:0 0 12px;color:var(--ink)}
+
+/* 820 */
+.sunw{height:260vh;position:relative}
+.suns{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center}
+.suns video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:circle(var(--r,7vmin) at 50% 50%);will-change:clip-path}
+.premise{position:relative;z-index:2;max-width:640px;text-align:center;font:500 clamp(11px,1.05vw,13px)/2.1 Archivo,Inter,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--ink);padding:0 20px;transition:opacity .6s ease;margin-top:30vmin}
+.big820{position:absolute;z-index:3;left:0;right:0;bottom:13vh;text-align:center;font:800 clamp(52px,12.5vw,220px)/.8 Archivo,Inter,sans-serif;font-stretch:112%;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:#fff;mix-blend-mode:overlay;opacity:var(--t,0);pointer-events:none}
+.s8{padding:clamp(60px,8vw,120px) 0 clamp(100px,12vw,180px)}
+.s8-g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(14px,2vw,28px);align-items:start}
+.s8-g .a{grid-column:1/9;aspect-ratio:16/9}
+.s8-g .cr{grid-column:10/13;align-self:end}
+.s8-g .b{grid-column:4/13;aspect-ratio:16/9;margin-top:clamp(30px,6vw,90px)}
+.s8-g .c{grid-column:1/13;aspect-ratio:2.2/1;margin-top:clamp(30px,6vw,90px)}
+.s8 .credits .t{font:700 22px/1.1 Archivo,Inter,sans-serif;font-stretch:115%;letter-spacing:.02em;text-transform:uppercase}
+.s8 .cap{font:500 11px/1.6 Archivo,Inter,sans-serif;letter-spacing:.24em;text-transform:uppercase;font-style:normal}
+.clock{position:fixed;right:max(4vw,18px);top:50%;transform:translateY(-50%);z-index:25;font:700 clamp(20px,2.2vw,30px)/1 Archivo,Inter,sans-serif;font-stretch:110%;font-variant-numeric:tabular-nums;color:var(--acc);writing-mode:vertical-rl;letter-spacing:.06em;opacity:0;transition:opacity .8s ease;pointer-events:none}
+body[data-w=s820] .clock{opacity:1}
+
+/* end of prototype */
+/* belle isle: postcards in the sun */
+.bi{padding:0 0 clamp(90px,12vw,160px);overflow:clip;position:relative}
+.bi::before{content:"";position:absolute;inset:-20% -10%;pointer-events:none;z-index:0;background:radial-gradient(40% 30% at 15% 20%,#ffb36b55,transparent 70%),radial-gradient(30% 25% at 90% 70%,#ff8a4a33,transparent 70%);animation:leak 14s ease-in-out infinite alternate;mix-blend-mode:multiply}
+@keyframes leak{to{transform:translate(6%,4%) scale(1.1)}}
+.bi .wrap{position:relative;z-index:1}
+.bi-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:clamp(40px,6vw,80px)}
+.bi h2{font:400 clamp(72px,12vw,190px)/.85 "Playfair Display",Georgia,serif;letter-spacing:-.03em;margin:0}
+.bi-open{position:relative;padding:clamp(70px,9vw,130px) max(4vw,18px) 0}
+.gate{position:relative;max-width:1240px;margin:0 auto;border-radius:clamp(14px,2vw,28px);overflow:hidden;background:#111;box-shadow:0 40px 80px -40px #3b2a1a99;transform:rotate(-1deg)}
+.gate video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.gate::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,#fff0 0 140px,#ffffff0c 140px 141px),radial-gradient(120% 100% at 50% 50%,#0000 60%,#0006 100%);mix-blend-mode:screen;animation:flick 3s steps(6) infinite}
+@keyframes flick{50%{opacity:.7}}
+.bi-open h2{position:relative;z-index:2;max-width:1240px;margin:0 auto clamp(24px,3vw,44px);color:#16323b}
+.bi::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.18;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.bi-sun{position:absolute;right:6vw;top:4vh;width:clamp(220px,30vw,460px);aspect-ratio:1;border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(circle,#fff6d8 0%,#ffd98a 34%,#ffb35c 58%,#ffb35c00 72%);filter:blur(2px);transform:translateY(var(--sy,0px));opacity:.95}
+.bi-sun::after{content:"";position:absolute;inset:-40%;border-radius:50%;background:radial-gradient(circle,#ffcf7a44,#ffcf7a00 60%);animation:pulse 5s ease-in-out infinite alternate}
+@keyframes pulse{to{transform:scale(1.12);opacity:.6}}
+.bi-open,.drift,.bi .wrap{position:relative;z-index:1}
+.drift{height:300vh}
+.drift-s{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center}
+.track{display:flex;gap:clamp(20px,3vw,48px);padding:0 10vw;will-change:transform}
+.slide{flex:none;width:clamp(280px,58vw,920px)}
+.slide .fr{aspect-ratio:16/9;border-radius:clamp(12px,1.6vw,22px);box-shadow:0 30px 60px -30px #1c3a4688}
+.slide:nth-child(even){margin-top:14vh}.slide:nth-child(odd){margin-top:-10vh}
+.waves{position:absolute;left:0;right:0;bottom:0;height:clamp(90px,14vw,190px);pointer-events:none;z-index:2}
+.waves svg{position:absolute;left:0;bottom:0;width:200%;height:100%}
+.waves .w1{animation:wv 16s linear infinite}.waves .w2{animation:wv 11s linear infinite reverse;bottom:-8px}.waves .w3{animation:wv 7s linear infinite;bottom:-18px}
+@keyframes wv{to{transform:translateX(-50%)}}
+.cards{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(16px,2.4vw,34px);align-items:start}
+.pc{background:#fbf7ef;padding:clamp(10px,1.2vw,16px) clamp(10px,1.2vw,16px) clamp(30px,3.4vw,48px);box-shadow:0 18px 40px -18px #3b2a1a66,0 2px 6px #3b2a1a22;transform:rotate(var(--r)) translateY(40px);opacity:0;transition:transform 1.4s var(--ease),opacity 1s ease,box-shadow .5s;position:relative}
+.pc.in{transform:rotate(calc(var(--r) * .5));opacity:1}
+.pc:hover{transform:rotate(0) translateY(-6px) scale(1.02);box-shadow:0 30px 60px -20px #3b2a1a88}
+.pc .fr{aspect-ratio:16/9}
+.pc .note{position:absolute;left:18px;bottom:10px;font:500 clamp(20px,1.8vw,26px)/1 Caveat,cursive;color:#2b3f47}
+.pc:nth-child(1){grid-column:1/8;--r:-3deg}
+.pc:nth-child(2){grid-column:8/13;--r:4deg;margin-top:clamp(40px,8vw,120px)}
+.pc:nth-child(3){grid-column:2/7;--r:2.5deg;margin-top:clamp(-40px,-3vw,-10px)}
+.pc:nth-child(4){grid-column:6/13;--r:-2deg;margin-top:clamp(30px,5vw,80px)}
+.bi .credits{max-width:360px;margin:clamp(50px,7vw,100px) 0 0 auto}
+.bi .credits .t{font:400 26px/1.1 "Playfair Display",Georgia,serif}
+
+/* football: game day */
+.fbw{overflow:hidden}
+.fb-open{position:relative;height:92svh;min-height:480px;overflow:hidden;background:#000}
+.fb-open video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05)}
+.fb-open::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0000 40%,#0c0e0c 100%)}
+.fb-t{position:absolute;left:0;right:0;bottom:4vh;z-index:2;padding:0 max(4vw,18px);font:800 clamp(44px,14vw,230px)/.82 Archivo,Inter,sans-serif;font-stretch:62%;letter-spacing:-.01em;text-transform:uppercase;color:var(--ink)}
+.fb-t span{display:block;color:transparent;-webkit-text-stroke:2px var(--acc)}
+.ticker{border-block:1px solid #cfae6c55;overflow:hidden;white-space:nowrap;padding:14px 0;font:700 clamp(14px,1.3vw,18px)/1 Archivo,Inter,sans-serif;font-stretch:80%;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+.ticker div{display:inline-block;animation:tick 38s linear infinite}
+.ticker .anc{width:1.2em;height:1.2em;vertical-align:-.25em;margin:0 1.1em}
+.ad{grid-column:1/-1;margin:clamp(40px,6vw,90px) calc(50% - 50vw);overflow:hidden;white-space:nowrap;padding:10px 0;border-block:1px solid #cfae6c44}
+.ad div{display:inline-flex;align-items:center;gap:.25em;font:800 clamp(80px,13vw,220px)/.95 Archivo,Inter,sans-serif;font-stretch:62%;text-transform:uppercase;will-change:transform}
+.ad span{color:transparent;-webkit-text-stroke:2px var(--acc)}
+.ad span.f{color:var(--acc);-webkit-text-stroke:0}
+.ad .anc{width:.62em;height:.62em;color:var(--acc);flex:none}
+.board{position:relative}
+.swing{position:absolute;right:clamp(10px,3vw,40px);top:-150px;width:clamp(90px,10vw,150px);color:var(--acc);opacity:.9;transform-origin:50% 0;animation:swing 4.5s ease-in-out infinite;pointer-events:none}
+@keyframes swing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes tick{to{transform:translateX(-50%)}}
+.fb-g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(12px,1.6vw,22px);padding-top:clamp(60px,8vw,120px);padding-bottom:clamp(90px,12vw,160px)}
+.fb-g .fr{aspect-ratio:4/3}
+.fb-g .n{position:relative}
+.fb-g .n::before{content:attr(data-n);position:absolute;z-index:3;bottom:-.12em;font:800 clamp(140px,19vw,320px)/.8 Archivo,Inter,sans-serif;font-stretch:62%;color:transparent;-webkit-text-stroke:2px var(--acc);pointer-events:none;opacity:.9;transition:transform 1.2s var(--ease)}
+.fb-g .n.l::before{left:-.08em}.fb-g .n.r::before{right:-.06em}
+.fb-g .n:hover::before{transform:translateY(-10px)}
+.fb-g .w12{grid-column:span 12}.fb-g .big .fr{aspect-ratio:16/9}.fb-g .w8{grid-column:span 8}.fb-g .w4{grid-column:span 4}.fb-g .w6{grid-column:span 6}.fb-g .w5{grid-column:span 5}.fb-g .w7{grid-column:span 7}
+.fbw .fr::after{content:"";position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.fbw .fr.in::after{animation:flash .55s ease-out}
+@keyframes flash{0%{opacity:.85}100%{opacity:0}}
+.board{grid-column:span 12;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));border:1px solid #cfae6c55;margin-top:clamp(30px,4vw,60px)}
+.board div{padding:18px 20px;border-right:1px solid #cfae6c33}
+.board div:last-child{border-right:0}
+.board small{display:block;font:600 11px/1 Archivo,Inter,sans-serif;letter-spacing:.24em;color:var(--acc);margin-bottom:10px}
+.board b{font:700 clamp(18px,1.6vw,22px)/1.2 Archivo,Inter,sans-serif;font-stretch:85%;text-transform:uppercase;letter-spacing:.02em}
+
+/* renouvelle: white on white */
+.rn{padding:clamp(140px,18vw,260px) 0}
+.rn-head{text-align:center;margin-bottom:clamp(60px,9vw,140px)}
+.rn h2{font:300 clamp(14px,1.3vw,17px)/1 Inter,sans-serif;letter-spacing:.9em;text-transform:uppercase;margin:0 0 18px;padding-left:.9em}
+.rn-head p{font:italic 400 clamp(20px,2vw,26px)/1.3 "Cormorant Garamond",Georgia,serif;color:var(--dim);margin:0}
+.rn-g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(16px,3vw,44px)}
+.rn-g .a{grid-column:3/11}
+.rn-g .b{grid-column:1/6;margin-top:clamp(60px,10vw,160px)}
+.rn-g .c{grid-column:7/13;margin-top:clamp(140px,18vw,280px)}
+.rn .fr{aspect-ratio:3/2}
+.veil{position:relative}
+.veil::after{content:"";position:absolute;inset:0;background:var(--bg);transform-origin:top;transition:transform 2.2s cubic-bezier(.7,0,.2,1) .2s;pointer-events:none}
+.veil.in::after{transform:scaleY(0)}
+.rn .cap{text-align:center;font-style:italic}
+.rn .credits{max-width:340px;margin:clamp(80px,10vw,150px) auto 0}
+.rn .credits .t{font:300 13px/1 Inter;letter-spacing:.6em;text-transform:uppercase;text-align:center}
+
+/* editorial: magazine spread */
+.ed{padding:clamp(100px,12vw,180px) 0 clamp(100px,12vw,180px)}
+.ed-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 12px;border-bottom:1.5px solid var(--ink);padding-bottom:12px;font:600 11px/1 Archivo,Inter,sans-serif;letter-spacing:.24em;text-transform:uppercase}
+.ed h2{font:italic 400 clamp(50px,14vw,230px)/.85 "Playfair Display",Georgia,serif;letter-spacing:-.03em;margin:clamp(20px,3vw,40px) 0 clamp(14px,2vw,24px)}
+.ed .dek{font:400 clamp(18px,1.6vw,22px)/1.45 "Playfair Display",Georgia,serif;max-width:34ch;margin:0 0 clamp(50px,7vw,100px)}
+.spread{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(12px,1.6vw,22px);align-items:start}
+.spread figure{margin:0;position:relative}
+.spread .fr{aspect-ratio:4/5}
+.spread figcaption{display:flex;justify-content:space-between;gap:10px;margin-top:10px;font:italic 400 15px/1.3 "Playfair Display",Georgia,serif;color:var(--dim)}
+.spread figcaption b{font:600 11px/1.3 Archivo,Inter,sans-serif;letter-spacing:.2em;font-style:normal;color:var(--acc)}
+.spread .s1{grid-column:1/6}
+.spread .s2{grid-column:6/10;margin-top:clamp(80px,12vw,200px)}
+.spread .s3{grid-column:10/13;margin-top:clamp(20px,3vw,40px)}
+.spread .s4{grid-column:2/6;margin-top:clamp(-40px,-4vw,-10px)}
+.spread .s5{grid-column:7/12;margin-top:clamp(20px,4vw,60px)}
+.pull{grid-column:6/12;align-self:center;font:italic 400 clamp(26px,3vw,44px)/1.15 "Playfair Display",Georgia,serif;margin:clamp(30px,4vw,60px) 0;color:var(--acc)}
+
+/* end credits */
+.ec{padding:clamp(120px,16vw,240px) 0 clamp(140px,16vw,240px);text-align:center;position:relative}
+.ec .name{font:italic 400 clamp(56px,9vw,140px)/.9 "Cormorant Garamond",Georgia,serif;margin:0 0 28px}
+.ec .bio{font:400 clamp(17px,1.5vw,20px)/1.6 Inter,sans-serif;max-width:46ch;margin:0 auto clamp(80px,10vw,140px);color:#d9d6cf}
+.roll{display:flex;flex-direction:column;align-items:center}
+.card{min-height:46vh;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transform:translateY(24px);will-change:opacity,transform}
+.card h4{font:italic 400 clamp(40px,6vw,84px)/1 "Cormorant Garamond",Georgia,serif;letter-spacing:0;text-transform:none;color:var(--ink);margin:0 0 30px}
+.card .pair{font-size:16px}
+.c-il h4{font:italic 400 clamp(44px,6vw,88px)/1 "Cormorant Garamond",Georgia,serif}
+.c-820 h4{font:800 clamp(40px,6vw,84px)/1 Archivo,Inter,sans-serif;font-stretch:118%;letter-spacing:-.02em;color:#e5722c}
+.c-be h4{font:400 clamp(44px,6vw,86px)/1 "Playfair Display",Georgia,serif;letter-spacing:-.02em;color:#a9d6e5}
+.c-fb h4{font:800 clamp(48px,7vw,104px)/.9 Archivo,Inter,sans-serif;font-stretch:62%;text-transform:uppercase;color:#cfae6c}
+.c-whr h4{font:300 clamp(16px,1.6vw,22px)/1.4 Inter,sans-serif;letter-spacing:.7em;text-transform:uppercase;padding-left:.7em}
+.c-ls h4{font:italic 400 clamp(44px,6vw,86px)/1 "Playfair Display",Georgia,serif;color:#e08a5f}
+.card .sub{font:500 11px/1 Inter;letter-spacing:.35em;text-transform:uppercase;color:var(--dim);margin:-14px 0 30px}
+.bts-g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(12px,1.6vw,22px);width:100%;max-width:1240px;margin:clamp(40px,6vw,80px) 0 clamp(100px,12vw,180px)}
+.bts-g .fr{aspect-ratio:3/2}
+.bts-g .g1{grid-column:1/8}.bts-g .g2{grid-column:8/13;align-self:end}
+.bts-g .g3{grid-column:1/5}.bts-g .g4{grid-column:5/9}.bts-g .g5{grid-column:9/13}
+.bts-g .g6{grid-column:1/5}.bts-g .g7{grid-column:5/9}.bts-g .g8{grid-column:9/13}
+.roll .blk{margin-bottom:clamp(70px,9vw,120px)}
+.blk h4{font:500 11px/1 Inter;letter-spacing:.35em;text-transform:uppercase;color:var(--dim);margin:0 0 18px}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4px 28px;font-size:15px;line-height:1.9;text-align:left;width:min(560px,90vw)}
+.pair span:nth-child(odd){text-align:right;color:var(--dim)}
+.big-r{font:italic 400 clamp(26px,3vw,40px)/1.3 "Cormorant Garamond",Georgia,serif}
+.bts{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(12px,1.6vw,22px);width:100%;max-width:1200px;text-align:left}
+.bts figure{margin:0}
+.bts .fr{aspect-ratio:3/2;filter:grayscale(.15)}
+.bts figcaption{font-size:13px;color:var(--dim);margin-top:8px}
+.bts .b1{grid-column:1/8}.bts .b2{grid-column:8/13;margin-top:clamp(60px,9vw,140px)}
+.bts .b3{grid-column:3/9}.bts .b4{grid-column:9/13;margin-top:clamp(40px,6vw,90px)}
+/* credits, compact */
+.ec{padding:clamp(100px,12vw,160px) 0 clamp(30px,4vw,50px);text-align:left}
+.ec-top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;padding-bottom:clamp(30px,4vw,50px);border-bottom:1px solid #ffffff22}
+.ec .name{font:italic 400 clamp(52px,8vw,124px)/.9 "Cormorant Garamond",Georgia,serif;margin:0 0 14px}
+.ec .bio{font:400 clamp(16px,1.4vw,19px)/1.5 Inter,sans-serif;color:#d9d6cf;margin:0;max-width:44ch}
+.skills{font:500 12px/2 Inter;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);margin:0;text-align:right}
+.ec-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:0;border-bottom:1px solid #ffffff22}
+.cc{padding:clamp(24px,3vw,40px) clamp(14px,1.6vw,24px) clamp(24px,3vw,40px) 0;border-right:1px solid #ffffff14;opacity:0;transform:translateY(16px);transition:opacity .9s ease,transform .9s var(--ease)}
+.cc:last-child{border-right:0}
+.cc.in{opacity:1;transform:none}
+.cc:nth-child(2){transition-delay:.08s}.cc:nth-child(3){transition-delay:.16s}.cc:nth-child(4){transition-delay:.24s}.cc:nth-child(5){transition-delay:.32s}
+.cc+.cc{padding-left:clamp(14px,1.6vw,24px)}
+.ck{display:block;font:500 10px/1 Inter;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
+.cc h4{margin:0 0 18px;font-size:clamp(26px,2.4vw,36px)!important;line-height:1.05!important;letter-spacing:0}
+.cc.c-whr h4{font-size:clamp(12px,1vw,14px)!important;letter-spacing:.4em!important;padding:8px 0 10px}
+.cc.c-fb h4{font-size:clamp(24px,2vw,32px)!important;overflow-wrap:anywhere}
+.cc dl{margin:0;font-size:13px;line-height:1.45}
+.cc dt{color:var(--dim)}.cc dd{margin:0 0 10px}
+.bstrip{margin-top:clamp(40px,5vw,70px);overflow:hidden;-webkit-mask-image:linear-gradient(90deg,#0000,#000 8%,#000 92%,#0000);mask-image:linear-gradient(90deg,#0000,#000 8%,#000 92%,#0000)}
+.bt-track{display:flex;gap:14px;width:max-content;animation:bt 60s linear infinite}
+.bstrip:hover .bt-track{animation-play-state:paused}
+@keyframes bt{to{transform:translateX(-50%)}}
+.bs{flex:none;width:clamp(200px,22vw,320px)}
+.bs .fr{aspect-ratio:3/2;filter:grayscale(1);transition:filter .5s}
+.bs .fr:hover{filter:none}
+@media(max-width:700px){.cc{border-right:0;border-bottom:1px solid #ffffff14;padding-left:0!important}.skills{text-align:left}}
+/* ending */
+.end{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;margin-top:-1px;padding:clamp(60px,8vw,110px) 0 clamp(80px,9vw,120px)}
+.end-bg{position:absolute;inset:0 0 0 18%;z-index:0;-webkit-mask-image:radial-gradient(ellipse 110% 120% at 68% 40%,#000 45%,#0000 100%);mask-image:radial-gradient(ellipse 110% 120% at 68% 40%,#000 45%,#0000 100%)}
+.end-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1) brightness(.5);transform:scale(1.05);object-position:60% 30%;animation:kb 40s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.12)}}
+.end-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#050505 0%,#05050599 30%,#05050500 70%),linear-gradient(0deg,#050505 0%,#05050500 45%)}
+.end-in{position:relative;z-index:1;width:100%}
+.end-k{display:inline-flex;align-items:center;gap:10px;font:500 12px/1 Inter;letter-spacing:.3em;text-transform:uppercase;color:#f0eee9b3;margin:0 0 22px}
+.end-k::before{content:"";width:8px;height:8px;border-radius:50%;background:#7bd88f;box-shadow:0 0 0 4px #7bd88f33;animation:pulse2 2s ease-in-out infinite}
+@keyframes pulse2{50%{box-shadow:0 0 0 9px #7bd88f00}}
+.end-h{font:400 clamp(58px,10vw,168px)/.9 "Cormorant Garamond",Georgia,serif;letter-spacing:-.02em;margin:0 0 clamp(40px,6vw,80px)}
+.end-h em{font-style:italic;color:#e8a25a}
+.rows{border-top:1px solid #ffffff2a;max-width:1100px}
+.row{position:relative;display:grid;grid-template-columns:140px minmax(0,1fr) auto;align-items:center;gap:20px;padding:clamp(18px,2.4vw,30px) 8px;border-bottom:1px solid #ffffff2a;text-decoration:none;color:var(--ink);isolation:isolate}
+.row::before{content:"";position:absolute;inset:0;z-index:-1;background:#e8a25a;transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease)}
+.row:hover::before,.row:focus-within::before{transform:scaleX(1)}
+.row:hover,.row:focus-within{color:#fff}
+.row.ig::before{background:linear-gradient(90deg,#f77737,#fa7e1e 18%,#d62976 48%,#962fbf 76%,#4f5bd5)}
+.row.li::before{background:#0a66c2}
+.row.gm::before{background:linear-gradient(90deg,#4285f4,#ea4335 36%,#f5a800 66%,#34a853)}
+.row.gm:hover .rv,.row.gm:focus-within .rv{text-shadow:0 1px 10px #0006}
+.rl{font:500 12px/1 Inter;letter-spacing:.28em;text-transform:uppercase;opacity:.7}
+.rv{font:italic 400 clamp(26px,3.6vw,52px)/1.1 "Cormorant Garamond",Georgia,serif;color:inherit;text-decoration:none;overflow-wrap:anywhere;transition:transform .55s var(--ease)}
+.row:hover .rv{transform:translateX(12px)}
+.row a.rv{font-size:clamp(19px,3.2vw,46px);overflow-wrap:normal;word-break:normal}
+.ra{font-size:clamp(22px,2.4vw,32px);transition:transform .4s var(--ease)}
+.row:hover .ra{transform:translate(4px,-4px)}
+.copy{font:500 12px/1 Inter;letter-spacing:.2em;text-transform:uppercase;border:1px solid currentColor;border-radius:999px;padding:12px 18px;min-height:40px;color:inherit}
+.end-f{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;margin-top:clamp(50px,7vw,90px);font-size:13px;color:#f0eee980}
+@media(max-width:600px){.row{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px}.rl{grid-column:1/-1}}
+.links{display:flex;flex-direction:column;align-items:center;gap:18px}
+.links a{overflow-wrap:anywhere}
+.links div:last-child a{font-size:clamp(24px,3.4vw,48px)}
+.links small{display:block;font:500 11px/1 Inter;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.contact a{display:inline-block;font:italic 400 clamp(34px,5vw,72px)/1.1 "Cormorant Garamond",Georgia,serif;color:var(--ink);text-decoration:none;border-bottom:1px solid #ffffff44;padding-bottom:6px;transition:border-color .3s}
+.contact a:hover{border-color:#fff}
+.fin{font:500 11px/1 Inter;letter-spacing:.4em;text-transform:uppercase;color:var(--dim);margin-top:clamp(80px,10vw,140px)}
+
+/* index */
+.cs{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:center;gap:clamp(14px,2.4vw,34px);padding:14px max(4vw,18px) 16px;overflow-x:auto;scrollbar-width:none;background:linear-gradient(0deg,#000a,#0000)}
+.cs::-webkit-scrollbar{display:none}
+.cs button{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:32px;font-size:13px;color:#fff;opacity:.45;transition:opacity .3s,color .6s}
+.cs button::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:0;transform:scale(.4);transition:opacity .3s,transform .3s}
+.cs button:hover{opacity:.85}
+.cs button.on{opacity:1;color:var(--c)}
+.cs button.on::before{opacity:1;transform:none}
+.cs button[data-soon]{opacity:.22;cursor:default}
+.snd{position:fixed;right:max(4vw,18px);top:9px;z-index:41;display:inline-flex;align-items:center;gap:9px;min-height:34px;padding:0 14px;border-radius:999px;border:1px solid #ffffff55;font-size:12px;letter-spacing:.12em;text-transform:lowercase;color:#fff;background:#0004;backdrop-filter:blur(6px);transition:background .3s,border-color .3s,color .3s}
+.snd:hover{border-color:#fff}
+.snd.on{background:#fff;color:#000;border-color:#fff}
+.snd.on b i{background:#000}
+.snd b{display:inline-flex;gap:2px;align-items:flex-end;height:12px}
+.snd b i{width:2px;background:#fff;height:3px;transition:height .3s}
+.snd.on b i{animation:eq 1s ease-in-out infinite}.snd.on b i:nth-child(2){animation-delay:.2s}.snd.on b i:nth-child(3){animation-delay:.4s}
+@keyframes eq{50%{height:12px}}
+.wsnd{position:relative;z-index:4;margin-top:22px;font:500 11px/1 Archivo,Inter,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--acc);border:1px solid currentColor;border-radius:999px;padding:12px 18px;min-height:40px;transition:opacity .5s}
+.boom{position:fixed;inset:0;z-index:55;pointer-events:none;background:radial-gradient(circle at 50% 55%,#fff3e0 0%,#ff6a1a 18%,#c21d10 48%,#3a0603 100%);opacity:0}
+.boom.go{animation:boom 2.6s cubic-bezier(.1,.7,.2,1) forwards}
+@keyframes boom{0%{opacity:0}4%{opacity:1}30%{opacity:.85}100%{opacity:0}}
+.shake{animation:shake .6s cubic-bezier(.36,.07,.19,.97)}
+@keyframes shake{10%,90%{transform:translate(-2px,1px)}20%,80%{transform:translate(4px,-2px)}30%,50%,70%{transform:translate(-6px,3px)}40%,60%{transform:translate(6px,-3px)}}
+
+/* letterbox cut between worlds */
+.lbx{position:fixed;left:0;right:0;height:0;background:#000;z-index:45;pointer-events:none}
+.lbx.t{top:0}.lbx.b{bottom:0}
+body.cut .lbx{animation:lbx 1.3s cubic-bezier(.65,0,.25,1)}
+@keyframes lbx{0%{height:0}45%{height:12vh}60%{height:12vh}100%{height:0}}
+.cold .hint{pointer-events:auto}
+.cold .hint button{color:#fffc;letter-spacing:.2em;font-size:12px;text-transform:lowercase;border-bottom:1px solid #fff6;padding:6px 0;min-height:32px}
+/* cursor + lightbox */
+.vf{position:fixed;left:0;top:0;z-index:50;mix-blend-mode:difference;width:112px;height:70px;margin:-35px 0 0 -56px;pointer-events:none;opacity:0;transition:opacity .25s,width .3s var(--ease),height .3s var(--ease),margin .3s var(--ease)}
+.vf.on{opacity:1}
+.vf i{position:absolute;width:16px;height:16px;border:1.5px solid #fff}
+.vf .q1{top:0;left:0;border-width:1.5px 0 0 1.5px}.vf .q2{top:0;right:0;border-width:1.5px 1.5px 0 0}
+.vf .q3{bottom:0;left:0;border-width:0 0 1.5px 1.5px}.vf .q4{bottom:0;right:0;border-width:0 1.5px 1.5px 0}
+.vf span{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;letter-spacing:.2em;color:#fff;text-transform:lowercase}
+.lb{position:fixed;inset:0;z-index:60;background:#000f;display:grid;place-items:center;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.lb.open{opacity:1;visibility:visible}
+.lb img{max-width:94vw;max-height:88vh;object-fit:contain}
+.lb button{position:absolute;width:48px;height:48px;border-radius:50%;background:#ffffff1a;color:#fff;font-size:20px}
+.lb .x{top:16px;right:16px}.lb .p{left:16px;top:50%;margin-top:-24px}.lb .n{right:16px;top:50%;margin-top:-24px}
+
+@media(max-width:820px){
+ .cs{justify-content:flex-start}
+ .il-head{grid-template-columns:minmax(0,1fr)}.il .sub{text-align:left}
+ .il-g>*,.s8-g>*,.cards>*,.fb-g>*,.rn-g>*,.spread>*,.bts>*,.bts-g>*{grid-column:1/13!important;margin-top:18px!important}
+ .fb-g .n::before{font-size:34vw}
+ .card{min-height:46vh}
+ .slide{width:80vw}
+ .clock{writing-mode:horizontal-tb;top:auto;bottom:62px;transform:none;font-size:18px}
+ .role{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.fr img{filter:none;transform:none;opacity:1}html{scroll-behavior:auto}}
+</style>
+</head>
+<body data-w="interlude">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="anc" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="9" r="5"/><path d="M32 14v43M19 22h26M9 38c1.5 11 11 19 23 19s21.5-8 23-19"/><path d="M4 43l5-6 6 4M60 43l-5-6-6 4"/></g></symbol></svg>
+<a class="mark" href="#top">Wadia Belbach</a>
+<span class="role">Filmmaker, photographer, editor, colorist</span>
+<canvas id="bokeh" aria-hidden="true"></canvas>
+<div class="clock" id="clock" aria-hidden="true">00:08:20</div>
+<div class="boom" id="boom" aria-hidden="true"></div>
+<div class="lbx t" aria-hidden="true"></div><div class="lbx b" aria-hidden="true"></div>
+<audio id="mus" src="media/interlude-music.mp3" loop preload="none"></audio>
+<audio id="mus2" src="media/football-music.mp3" loop preload="none"></audio>
+<audio id="mus3" src="media/belle-music.mp3" loop preload="none"></audio>
+<audio id="amb1" src="media/amb-snow.mp3" loop preload="none"></audio>
+<audio id="amb2" src="media/amb-warm.mp3" loop preload="none"></audio>
+
+<header class="cold" id="top" data-w="interlude">
+  <video id="hero" src="media/interlude-hero.mp4" poster="media/interlude-05.jpg" muted loop playsinline preload="auto"></video>
+  <div class="nm">Wadia Belbach</div>
+  <div class="hint"><button id="wsnd0">turn sound on</button>&nbsp;&nbsp;·&nbsp;&nbsp;scroll</div>
+</header>
+
+<main>
+<section class="il" id="interlude" data-w="interlude">
+  <div class="wrap">
+    <div class="il-head">
+      <h2>Interlude</h2>
+      <div class="sub"><b>MUSIC VIDEO · 2026</b>SCH, Jour d'octobre</div>
+    </div>
+    <div class="il-g">
+      <button class="fr a" data-set="il" data-i="3" aria-label="Open frame"><img src="media/interlude-04.jpg" alt="City skyline at dusk from a hill"></button>
+      <div class="b"><button class="fr" style="aspect-ratio:4/3" data-set="il" data-i="0" aria-label="Open frame"><img src="media/interlude-01.jpg" alt="Man in a cap looking over the skyline"></button></div>
+      <div class="cr credits">
+        <div class="t">Interlude</div>
+        <div><span>Director</span><span>Wadia Belbach</span></div>
+        <div><span>Editor</span><span>Wadia Belbach</span></div>
+        <div><span>Colorist</span><span>Wadia Belbach</span></div>
+        <div><span>Director of photography</span><span>Braden Colli</span></div>
+        <div><span>Starring</span><span>Danny Malabet</span></div>
+      </div>
+      <button class="fr c" data-set="il" data-i="1" aria-label="Open frame"><img src="media/interlude-02.jpg" alt="Silhouettes at sunset between two poles"></button>
+      <button class="fr d" data-set="il" data-i="4" aria-label="Open frame"><img src="media/interlude-05.jpg" alt="Figure leaning on a rail with city lights behind"></button>
+      <button class="fr e" data-set="il" data-i="2" aria-label="Open frame"><img src="media/interlude-03.jpg" alt="Lights reflecting on a dark river"></button>
+    </div>
+  </div>
+</section>
+
+<section id="s820" data-w="s820">
+  <div class="sunw" id="sunw">
+    <div class="suns">
+      <video id="sun" src="media/820-sun.mp4" muted loop playsinline preload="auto"></video>
+      <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center" id="premise"><p class="premise" style="margin-bottom:0">If the sun were to suddenly explode, the Earth would not be affected for approximately eight minutes and twenty seconds.</p><button class="wsnd" id="wsnd">Watch with sound</button></div>
+      <div class="big820" id="big820">00:08:20</div>
+    </div>
+  </div>
+  <div class="s8">
+    <div class="wrap s8-g">
+      <div class="a"><button class="fr" style="aspect-ratio:16/9" data-set="s8" data-i="0" aria-label="Open frame"><img src="media/820-01.jpg" alt="00:08:20, a face in a kitchen door window"></button><div class="cap">Short film · 2026</div></div>
+      <div class="cr credits">
+        <div class="t">00:08:20</div>
+        <div><span>Director</span><span>Wadia Belbach</span></div>
+        <div><span>Colorist</span><span>Wadia Belbach</span></div>
+        <div><span>Editor</span><span>Braden Colli</span></div>
+        <div><span>Director of photography</span><span>Braden Colli</span></div>
+      </div>
+      <button class="fr b" data-set="s8" data-i="1" aria-label="Open frame"><img src="media/820-03.jpg" alt="Riding a bike toward the camera"></button>
+      <button class="fr c" data-set="s8" data-i="2" aria-label="Open frame"><img src="media/820-04.jpg" alt="Two people sitting at the end of a dock"></button>
+    </div>
+  </div>
+</section>
+
+<section class="bi" id="belle" data-w="belle">
+  <div class="bi-sun" id="bisun" aria-hidden="true"></div>
+  <div class="bi-open">
+    <h2>Belle Isle</h2>
+    <div class="gate"><video class="inview" src="media/belle-loop.mp4" poster="media/belle-01.jpg" muted loop playsinline preload="none"></video></div>
+  </div>
+  <div class="drift" id="drift">
+    <div class="drift-s">
+      <div class="track" id="track">
+        <div class="slide"><button class="fr" data-set="be" data-i="0" aria-label="Open frame"><img src="media/belle-01.jpg" alt="Beach and lake under a clear sky" loading="lazy"></button></div>
+        <div class="slide"><button class="fr" data-set="be" data-i="1" aria-label="Open frame"><img src="media/belle-02.jpg" alt="A bike leaning on a tree by the water" loading="lazy"></button></div>
+        <div class="slide"><button class="fr" data-set="be" data-i="2" aria-label="Open frame"><img src="media/belle-03.jpg" alt="A boat and a swimmer in the lake" loading="lazy"></button></div>
+        <div class="slide"><button class="fr" data-set="be" data-i="3" aria-label="Open frame"><img src="media/belle-04.jpg" alt="Someone sitting on the sand facing the water" loading="lazy"></button></div>
+      </div>
+      <div class="waves" aria-hidden="true"><svg class="w1" viewBox="0 0 2880 200" preserveAspectRatio="none"><path fill="#2f7f9a33"/></svg><svg class="w2" viewBox="0 0 2880 200" preserveAspectRatio="none"><path fill="#2f7f9a55"/></svg><svg class="w3" viewBox="0 0 2880 200" preserveAspectRatio="none"><path fill="#1c4755aa"/></svg></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="credits">
+      <div class="t">Belle Isle</div>
+      <div><span>Videographer, editor, colorist</span><span>Wadia Belbach</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="fbw" id="football" data-w="fb">
+  <div class="fb-open">
+    <video id="fbv" class="inview" src="media/fb-loop.mp4" poster="media/fb-04.jpg" muted loop playsinline preload="none"></video>
+    <div class="fb-t">Vanderbilt<span>Football</span></div>
+  </div>
+  <div class="ticker" aria-hidden="true"><div>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg></div></div>
+  <div class="wrap fb-g">
+    <div class="w12 big"><button class="fr" data-set="fb" data-i="0" aria-label="Open frame"><img src="media/fb-07.jpg" alt="Quarterback number 1 with his head down" loading="lazy"></button></div>
+    <div class="ad" aria-hidden="true"><div id="adt"><span class="f">Anchor</span><span>down</span><svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg><span class="f">Anchor</span><span>down</span><svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg><span class="f">Anchor</span><span>down</span><svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg><span class="f">Anchor</span><span>down</span><svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg><span class="f">Anchor</span><span>down</span><svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg></div></div>
+    <div class="w7"><button class="fr" data-set="fb" data-i="1" aria-label="Open frame"><img src="media/fb-01.jpg" alt="Players running out of the tunnel" loading="lazy"></button></div>
+    <div class="w5"><button class="fr" data-set="fb" data-i="2" aria-label="Open frame"><img src="media/fb-05.jpg" alt="Fans screaming in the stands" loading="lazy"></button></div>
+    <div class="w6"><button class="fr" data-set="fb" data-i="3" aria-label="Open frame"><img src="media/fb-06.jpg" alt="Player number 46 celebrating" loading="lazy"></button></div>
+    <div class="w6"><button class="fr" data-set="fb" data-i="4" aria-label="Open frame"><img src="media/fb-02.jpg" alt="Number 8 in black and white" loading="lazy"></button></div>
+    <div class="w7"><button class="fr" data-set="fb" data-i="5" aria-label="Open frame"><img src="media/fb-04.jpg" alt="The team pouring out through smoke" loading="lazy"></button></div>
+    <div class="w5"><button class="fr" data-set="fb" data-i="6" aria-label="Open frame"><img src="media/sch-03.jpg" alt="Players 14 and 35 before kickoff" loading="lazy"></button></div>
+    <div class="w6"><button class="fr" data-set="fb" data-i="7" aria-label="Open frame"><img src="media/sch-02.jpg" alt="Player 52 adjusting his helmet" loading="lazy"></button></div>
+    <div class="w6"><button class="fr" data-set="fb" data-i="8" aria-label="Open frame"><img src="media/sch-05.jpg" alt="Lineman 76 on the field" loading="lazy"></button></div>
+    <div class="board">
+      <svg class="swing anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>
+      <div><small>Client</small><b>Vanderbilt Athletics</b></div>
+      <div><small>Role</small><b>Videographer, editor, colorist</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="rn" id="renouvelle" data-w="whr">
+  <div class="wrap">
+    <div class="rn-head"><h2>White Horse Rider</h2><p>Single cover for Renouvelle</p></div>
+    <div class="rn-g">
+      <div class="a veil"><button class="fr" data-set="rn" data-i="0" aria-label="Open frame"><img src="media/whr-03.jpg" alt="A figure in white walking in front of a columned building, looking away" loading="lazy"></button></div>
+      <div class="b veil"><button class="fr" data-set="rn" data-i="1" aria-label="Open frame"><img src="media/whr-01.jpg" alt="Profile in a white veil, looking up" loading="lazy"></button></div>
+      <div class="c veil"><button class="fr" data-set="rn" data-i="2" aria-label="Open frame"><img src="media/whr-02.jpg" alt="Walking away in a white veil across the snow" loading="lazy"></button></div>
+    </div>
+    <div class="credits">
+      <div class="t">White Horse Rider</div>
+      <div><span>Client</span><span>Renouvelle</span></div>
+      <div><span>Photographer</span><span>Wadia Belbach</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="ed" id="editorial" data-w="ed">
+  <div class="wrap">
+    <div class="ed-bar"><span>Photography</span><span>Lifestyle and travel</span></div>
+    <h2>Photography</h2>
+    <p class="dek">Lifestyle and travel photography for a fashion blogger.</p>
+    <div class="spread">
+      <figure class="s1"><button class="fr" data-set="ed" data-i="0" aria-label="Open frame" style="aspect-ratio:4/5"><img src="media/ed-01.jpg" alt="Lifestyle and travel photograph 1" loading="lazy"></button></figure>
+      <figure class="s2"><button class="fr" data-set="ed" data-i="1" aria-label="Open frame" style="aspect-ratio:4/5"><img src="media/ed-02.jpg" alt="Lifestyle and travel photograph 2" loading="lazy"></button></figure>
+      <figure class="s3"><button class="fr" data-set="ed" data-i="2" aria-label="Open frame" style="aspect-ratio:4/5"><img src="media/ed-03.jpg" alt="Lifestyle and travel photograph 3" loading="lazy"></button></figure>
+      <figure class="s4"><button class="fr" data-set="ed" data-i="3" aria-label="Open frame" style="aspect-ratio:4/5"><img src="media/ed-04.jpg" alt="Lifestyle and travel photograph 4" loading="lazy"></button></figure>
+      <figure class="s5"><button class="fr" data-set="ed" data-i="4" aria-label="Open frame" style="aspect-ratio:4/5"><img src="media/ed-05.jpg" alt="Lifestyle and travel photograph 5" loading="lazy"></button></figure>
+    </div>
+  </div>
+</section>
+
+<section class="ec" id="credits" data-w="credits">
+  <div class="wrap">
+    <div class="ec-top">
+      <div><p class="name">Wadia Belbach</p><p class="bio">Filmmaker, photographer, editor and colorist based in Nashville, TN.</p></div>
+      <p class="skills">Directing<br>Cinematography<br>Editing<br>Color grading<br>Photography</p>
+    </div>
+    <div class="ec-list">
+        <div class="cc c-il"><span class="ck">Music video</span><h4>Interlude</h4><dl><dt>Director, editor, colorist</dt><dd>Wadia Belbach</dd><dt>Director of photography</dt><dd>Braden Colli</dd><dt>Starring</dt><dd>Danny Malabet</dd></dl></div>
+        <div class="cc c-820"><span class="ck">Short film</span><h4>00:08:20</h4><dl><dt>Director, colorist</dt><dd>Wadia Belbach</dd><dt>Editor</dt><dd>Braden Colli</dd><dt>Director of photography</dt><dd>Braden Colli</dd></dl></div>
+        <div class="cc c-be"><span class="ck">Short</span><h4>Belle Isle</h4><dl><dt>Videographer, editor, colorist</dt><dd>Wadia Belbach</dd></dl></div>
+        <div class="cc c-fb"><span class="ck">Sports</span><h4>Vanderbilt Football</h4><dl><dt>Videographer, editor, colorist</dt><dd>Wadia Belbach</dd><dt>Client</dt><dd>Vanderbilt Athletics</dd></dl></div>
+        <div class="cc c-whr"><span class="ck">Single cover</span><h4>White Horse Rider</h4><dl><dt>Photographer</dt><dd>Wadia Belbach</dd><dt>Client</dt><dd>Renouvelle</dd></dl></div>
+    </div>
+  </div>
+  <div class="bstrip" aria-label="Behind the scenes"><div class="bt-track"><div class="bs"><button class="fr" data-set="bt" data-i="0" aria-label="Open frame"><img src="media/bts-01.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" data-set="bt" data-i="1" aria-label="Open frame"><img src="media/bts-06.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" data-set="bt" data-i="2" aria-label="Open frame"><img src="media/bts-02.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" data-set="bt" data-i="3" aria-label="Open frame"><img src="media/bts-03.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" data-set="bt" data-i="4" aria-label="Open frame"><img src="media/bts-04.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" data-set="bt" data-i="5" aria-label="Open frame"><img src="media/bts-05.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" data-set="bt" data-i="6" aria-label="Open frame"><img src="media/bts-07.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" data-set="bt" data-i="7" aria-label="Open frame"><img src="media/sch-01.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" tabindex="-1" aria-hidden="true" data-set="bt" data-i="0" aria-label="Open frame"><img src="media/bts-01.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" tabindex="-1" aria-hidden="true" data-set="bt" data-i="1" aria-label="Open frame"><img src="media/bts-06.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" tabindex="-1" aria-hidden="true" data-set="bt" data-i="2" aria-label="Open frame"><img src="media/bts-02.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" tabindex="-1" aria-hidden="true" data-set="bt" data-i="3" aria-label="Open frame"><img src="media/bts-03.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" tabindex="-1" aria-hidden="true" data-set="bt" data-i="4" aria-label="Open frame"><img src="media/bts-04.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" tabindex="-1" aria-hidden="true" data-set="bt" data-i="5" aria-label="Open frame"><img src="media/bts-05.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" tabindex="-1" aria-hidden="true" data-set="bt" data-i="6" aria-label="Open frame"><img src="media/bts-07.jpg" alt="Behind the scenes" loading="lazy"></button></div><div class="bs"><button class="fr" tabindex="-1" aria-hidden="true" data-set="bt" data-i="7" aria-label="Open frame"><img src="media/sch-01.jpg" alt="Behind the scenes" loading="lazy"></button></div></div></div>
+</section>
+
+<section class="end" id="contact" data-w="credits">
+  <div class="end-bg" aria-hidden="true"><img src="media/bts-06.jpg" alt=""></div>
+  <div class="wrap end-in">
+    <p class="end-k">Open to new projects</p>
+    <h2 class="end-h">Let's make<br><em>something.</em></h2>
+    <div class="rows">
+      <a class="row ig" href="https://www.instagram.com/wadia_belbach/"><span class="rl">Instagram</span><span class="rv">@wadia_belbach</span><span class="ra" aria-hidden="true">↗</span></a>
+      <a class="row li" href="https://www.linkedin.com/in/wadia-belbach/"><span class="rl">LinkedIn</span><span class="rv">Wadia Belbach</span><span class="ra" aria-hidden="true">↗</span></a>
+      <div class="row gm"><span class="rl">Email</span><a class="rv" href="mailto:wadiaa.belbach123@gmail.com">wadiaa.belbach123@gmail.com</a><button class="copy" id="copyEm" type="button">Copy</button></div>
+    </div>
+    <div class="end-f"><span>© 2026 Wadia Belbach</span></div>
+  </div>
+</section>
+</main>
+
+<nav class="cs" id="cs" aria-label="Sections"></nav>
+<button class="snd" id="snd" aria-pressed="false" aria-label="Toggle sound"><b><i></i><i></i><i></i></b><span id="sndL">sound off</span></button>
+<div class="vf" id="vf" aria-hidden="true"><i class="q1"></i><i class="q2"></i><i class="q3"></i><i class="q4"></i><span>view</span></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Frame viewer"><button class="x" id="lbx" aria-label="Close">×</button><button class="p" id="lbp" aria-label="Previous">←</button><img id="lbi" alt=""><button class="n" id="lbn" aria-label="Next">→</button></div>
+
+<script>
+{
+const $=s=>document.querySelector(s);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+/* section index */
+const script=[
+ {id:'interlude',n:'Interlude',c:'#e8a25a'},
+ {id:'s820',n:'00:08:20',c:'#e5722c'},
+ {id:'belle',n:'Belle Isle',c:'#7fc3d8'},
+ {id:'fb',el:'football',n:'Vanderbilt Football',c:'#cfae6c'},
+ {id:'whr',el:'renouvelle',n:'White Horse Rider',c:'#c9d3e0'},
+ {id:'ed',el:'editorial',n:'Photography',c:'#e08a5f'},
+ {id:'credits',n:'Credits',c:'#ffffff'}];
+const cs=$('#cs');
+cs.innerHTML=script.map((s,i)=>`<button data-k="${i}" ${s.soon?'data-soon="1" aria-disabled="true" title="Coming in the full build"':''} style="--c:${s.c||'#fff'}">${s.n}</button>`).join('');
+cs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const s=script[+b.dataset.k];if(s.id)document.getElementById(s.el||s.id).scrollIntoView({behavior:reduce?'auto':'smooth'})});
+
+/* sound: synthesized tick + detonation, only after the viewer turns it on */
+let ac=null,soundOn=false,lastTick=0;
+const sndBtn=$('#snd'),wsnd=$('#wsnd');
+const tracks=[{el:$('#mus'),w:'interlude',v:.6,g:null},{el:$('#mus2'),w:'fb',v:.55,g:null},{el:$('#mus3'),w:'belle',v:.6,g:null},{el:$('#amb1'),w:'whr',v:.7,g:null},{el:$('#amb2'),w:'ed',v:.7,g:null}];let offT=0;
+const updateMusic=()=>{if(!ac)return;const w=document.body.dataset.w;
+  tracks.forEach(t=>{if(!t.g)return;const target=soundOn&&w===t.w?t.v:0;t.g.gain.setTargetAtTime(target,ac.currentTime,target?.8:.45)});
+  clearTimeout(offT);if(!soundOn)offT=setTimeout(()=>{if(!soundOn)tracks.forEach(t=>t.el.pause())},2000)};
+const setSound=on=>{soundOn=on;sndBtn.classList.toggle('on',on);sndBtn.setAttribute('aria-pressed',on);$('#sndL').textContent=on?'sound on':'sound off';wsnd.style.opacity=on?0:1;wsnd.textContent=on?'Sound on':'Watch with sound';$('#wsnd0').textContent=on?'sound on':'turn sound on';if(!on)stopBoom();updateMusic()};
+const enable=()=>{try{if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();ac.resume();
+  tracks.forEach(t=>{if(!t.g){t.g=ac.createGain();t.g.gain.value=0;ac.createMediaElementSource(t.el).connect(t.g).connect(ac.destination)}t.el.play().catch(()=>{})});
+  loadBoom();setSound(true)}catch(e){setSound(false)}};
+sndBtn.addEventListener('click',()=>soundOn?setSound(false):enable());
+wsnd.addEventListener('click',()=>{if(!soundOn)enable()});
+$('#wsnd0').addEventListener('click',()=>{if(!soundOn)enable()});
+const tickSnd=()=>{if(!soundOn||!ac)return;const now=ac.currentTime;if(now-lastTick<.07)return;lastTick=now;
+  const o=ac.createOscillator(),g=ac.createGain(),f=ac.createBiquadFilter();o.type='square';o.frequency.value=1850;f.type='bandpass';f.frequency.value=2400;f.Q.value=6;
+  g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(.18,now+.002);g.gain.exponentialRampToValueAtTime(.0001,now+.045);
+  o.connect(f).connect(g).connect(ac.destination);o.start(now);o.stop(now+.06)};
+let boomBuf=null,boomSrc=null,boomGain=null;
+const loadBoom=()=>{if(boomBuf||!ac)return;fetch('media/detonation.mp3').then(r=>r.arrayBuffer()).then(b=>ac.decodeAudioData(b)).then(d=>{boomBuf=d}).catch(()=>{})};
+const boomSnd=()=>{if(!soundOn||!ac||!boomBuf)return 0;try{boomSrc&&boomSrc.stop()}catch(e){}
+  boomSrc=ac.createBufferSource();boomSrc.buffer=boomBuf;boomGain=ac.createGain();boomGain.gain.value=.95;boomSrc.connect(boomGain).connect(ac.destination);boomSrc.start();return 480};
+const fadeBoom=()=>{if(!ac||!boomSrc||!boomGain)return;const src=boomSrc;boomGain.gain.setTargetAtTime(0,ac.currentTime,.3);setTimeout(()=>{try{src.stop()}catch(e){}if(boomSrc===src)boomSrc=null},1600)};
+const stopBoom=()=>{try{boomSrc&&boomSrc.stop()}catch(e){}boomSrc=null};
+let detonated=false,lastLeft=-1;
+const detonate=()=>{detonated=true;const lag=boomSnd();setTimeout(()=>{const b=$('#boom');b.classList.remove('go');void b.offsetWidth;if(!reduce){b.classList.add('go');document.querySelector('main').classList.remove('shake');void document.body.offsetWidth;document.querySelector('main').classList.add('shake')}},lag)};
+
+/* cold open */
+const hero=$('#hero'),cold=$('.cold');
+const start=()=>{cold.classList.add('go');if(!reduce){hero.play().then(()=>hero.classList.add('on')).catch(()=>hero.classList.add('on'))}else hero.classList.add('on')};
+if(hero.readyState>=2)start();else{hero.addEventListener('loadeddata',start,{once:true});setTimeout(start,1800)}
+
+/* reveal frames */
+const rio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target)}}),{rootMargin:'0px 0px -12% 0px'});
+document.querySelectorAll('.fr,.pc,.veil,.cc').forEach(f=>rio.observe(f));
+
+/* worlds */
+const worlds=[...document.querySelectorAll('[data-w]')].filter(el=>el!==document.body);
+const btns=[...cs.querySelectorAll('button')];
+let cutT=0;
+const setWorld=w=>{if(document.body.dataset.w!==w){if(document.body.dataset.w==='s820')fadeBoom();document.body.dataset.w=w;
+    if(!reduce){document.body.classList.remove('cut');void document.body.offsetWidth;document.body.classList.add('cut');clearTimeout(cutT);cutT=setTimeout(()=>document.body.classList.remove('cut'),1400)}
+    updateMusic()}
+  btns.forEach((b,i)=>b.classList.toggle('on',script[i].id===w))};
+
+/* 820 sun + countdown */
+const sunw=$('#sunw'),sun=$('#sun'),prem=$('#premise'),big=$('#big820'),clock=$('#clock'),s820=$('#s820');
+let sunPlaying=false;
+const tick=()=>{
+  const vh=innerHeight,mid=vh*.5;
+  let cur='interlude';
+  for(const el of worlds){const r=el.getBoundingClientRect();if(r.top<=mid&&r.bottom>mid)cur=el.dataset.w}
+  setWorld(cur);
+  const r=sunw.getBoundingClientRect(),span=r.height-vh,p=Math.min(1,Math.max(0,-r.top/span)),e=Math.min(1,p/.72);
+  const rad=reduce?70:3+Math.pow(e,1.7)*67;
+  sun.style.clipPath=e<.015?'circle(7vmin at 50% 50%)':`circle(max(7vmin,${rad.toFixed(2)}vmax) at 50% 50%)`;
+  prem.style.opacity=Math.max(0,1-e*2.4).toFixed(3);prem.style.pointerEvents=e>.35?'none':'';
+  big.style.setProperty('--t',Math.max(0,Math.min(1,(p-.78)/.14)).toFixed(3));
+  const inView=r.top<vh&&r.bottom>0;
+  if(inView&&!sunPlaying&&!reduce){sun.play().catch(()=>{});sunPlaying=true}else if(!inView&&sunPlaying){sun.pause();sunPlaying=false}
+  const left=Math.round(500*(1-e));
+  clock.textContent='00:'+String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0');
+  if(lastLeft>=0&&left!==lastLeft&&cur==='s820')tickSnd();
+  if(e>=1&&!detonated&&cur==='s820')detonate();
+  if(left>12){if(detonated)stopBoom();detonated=false}
+  lastLeft=left;
+};
+let pend=false;addEventListener('scroll',()=>{if(!pend){pend=true;requestAnimationFrame(()=>{pend=false;tick()})}},{passive:true});
+addEventListener('resize',tick);tick();
+
+/* bokeh, Interlude only */
+const cv=$('#bokeh'),ctx=cv.getContext('2d');let W=0,H=0,dots=[];
+const size=()=>{const d=Math.min(devicePixelRatio||1,2);W=cv.width=innerWidth*d;H=cv.height=innerHeight*d};
+size();addEventListener('resize',size);
+const pal=[[232,162,90],[201,138,154],[147,147,172],[255,214,150]];
+const glints=Array.from({length:46},()=>({x:Math.random(),y:Math.random(),s:Math.random(),sp:500+Math.random()*900,ph:Math.random()*6}));
+const flakes=Array.from({length:150},()=>{const z=Math.random();return{x:Math.random(),y:Math.random(),z,r:1+z*z*6,vy:.0003+z*.0011,sw:Math.random()*6,a:.45+z*.45}});
+const motes=Array.from({length:70},()=>{const z=Math.random();return{x:Math.random(),y:Math.random(),z,r:.8+z*3.2,vx:(Math.random()-.5)*.00012,vy:-(.00005+Math.random()*.00016),ph:Math.random()*6}});
+for(let i=0;i<26;i++)dots.push({x:Math.random(),y:Math.random(),r:.02+Math.random()*.06,vx:(Math.random()-.5)*.00012,vy:-(.00004+Math.random()*.00012),a:.05+Math.random()*.12,c:pal[i%pal.length],ph:Math.random()*6});
+const draw=t=>{
+  if(document.body.dataset.w==='interlude'){
+    ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation='lighter';
+    for(const d of dots){d.x+=d.vx;d.y+=d.vy;if(d.y<-.1){d.y=1.1;d.x=Math.random()}if(d.x<-.1)d.x=1.1;if(d.x>1.1)d.x=-.1;
+      const R=d.r*Math.max(W,H),x=d.x*W,y=d.y*H,al=d.a*(.75+.25*Math.sin(t/1400+d.ph));
+      const g=ctx.createRadialGradient(x,y,0,x,y,R);g.addColorStop(0,`rgba(${d.c},${al})`);g.addColorStop(.7,`rgba(${d.c},${al*.55})`);g.addColorStop(1,`rgba(${d.c},0)`);
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,R,0,7);ctx.fill()}
+  }
+  else if(document.body.dataset.w==='belle'){
+    ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation='source-over';const dpr=W/innerWidth;
+    for(const g of glints){const tw=Math.max(0,Math.sin(t/g.sp+g.ph));if(tw<.05)continue;const x=g.x*W,y=g.y*H,L=(4+g.s*10)*dpr*tw;
+      ctx.strokeStyle=`rgba(255,250,235,${.85*tw})`;ctx.lineWidth=1.1*dpr;ctx.beginPath();ctx.moveTo(x-L,y);ctx.lineTo(x+L,y);ctx.moveTo(x,y-L);ctx.lineTo(x,y+L);ctx.stroke();
+      ctx.fillStyle=`rgba(255,244,214,${.9*tw})`;ctx.beginPath();ctx.arc(x,y,1.6*dpr*tw,0,7);ctx.fill()}
+  }
+  else if(document.body.dataset.w==='whr'){
+    ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation='source-over';const dpr=W/innerWidth;
+    for(const f of flakes){f.y+=f.vy;if(f.y>1.05){f.y=-.05;f.x=Math.random()}
+      const x=(f.x+Math.sin(t/(2200+f.z*900)+f.sw)*(.008+f.z*.02))*W,y=f.y*H,R=f.r*dpr;
+      const g=ctx.createRadialGradient(x,y,0,x,y,R);g.addColorStop(0,`rgba(255,255,255,${f.a})`);g.addColorStop(.55,`rgba(236,242,250,${f.a*.8})`);g.addColorStop(1,'rgba(150,165,190,0)');
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,R,0,7);ctx.fill()}
+  }
+  else if(document.body.dataset.w==='ed'){
+    ctx.clearRect(0,0,W,H);const dpr=W/innerWidth;
+    ctx.globalCompositeOperation='source-over';
+    for(let k=0;k<3;k++){const off=Math.sin(t/7000+k*2)*.08,x0=(.15+k*.3+off)*W;
+      const g=ctx.createLinearGradient(x0,0,x0+W*.25,H);g.addColorStop(0,'rgba(255,236,200,0)');g.addColorStop(.5,`rgba(255,236,200,${.07+.03*Math.sin(t/3000+k)})`);g.addColorStop(1,'rgba(255,236,200,0)');
+      ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(x0,0);ctx.lineTo(x0+W*.08,0);ctx.lineTo(x0+W*.33,H);ctx.lineTo(x0+W*.18,H);ctx.closePath();ctx.fill()}
+    for(const m of motes){m.x+=m.vx;m.y+=m.vy;if(m.y<-.05){m.y=1.05;m.x=Math.random()}if(m.x<-.05)m.x=1.05;if(m.x>1.05)m.x=-.05;
+      const tw=.55+.45*Math.sin(t/900+m.ph),x=m.x*W,y=m.y*H,R=m.r*dpr*2.2;
+      const g=ctx.createRadialGradient(x,y,0,x,y,R);g.addColorStop(0,`rgba(255,246,222,${.85*tw})`);g.addColorStop(.4,`rgba(255,220,160,${.35*tw})`);g.addColorStop(1,'rgba(255,220,160,0)');
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,R,0,7);ctx.fill()}
+  }
+  if(!reduce)requestAnimationFrame(draw)};
+requestAnimationFrame(draw);
+
+/* football opener plays only in view */
+if(!reduce){const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.preload='auto';v.play().catch(()=>{})}else v.pause()}),{threshold:.2});document.querySelectorAll('video.inview').forEach(v=>vio.observe(v))}
+/* belle isle: waves, sun, sideways drift */
+document.querySelectorAll('.waves svg').forEach((sv,k)=>{const A=[22,16,12][k],P=[720,480,360][k],B=[90,110,135][k];let d=`M0 200 L0 ${B}`;for(let x=0;x<=2880;x+=24)d+=` L${x} ${(B+Math.sin(x/P*Math.PI*2)*A).toFixed(1)}`;d+=' L2880 200 Z';sv.querySelector('path').setAttribute('d',d)});
+const drift=$('#drift'),track=$('#track'),bisun=$('#bisun'),belle=$('#belle');
+const driftMove=()=>{const vh=innerHeight,r=drift.getBoundingClientRect(),p=Math.min(1,Math.max(0,-r.top/(r.height-vh))),max=track.scrollWidth-innerWidth;
+  track.style.transform=`translateX(${(-p*Math.max(0,max)).toFixed(1)}px)`;
+  const br=belle.getBoundingClientRect(),q=Math.min(1,Math.max(0,-br.top/(br.height)));bisun.style.setProperty('--sy',(q*br.height*.72).toFixed(0)+'px')};
+addEventListener('scroll',()=>requestAnimationFrame(driftMove),{passive:true});addEventListener('resize',driftMove);driftMove();
+/* anchor down band drifts with scroll */
+const adt=$('#adt');const adMove=()=>{const r=adt.getBoundingClientRect();adt.style.transform=`translateX(${(-(innerHeight-r.top)*.35).toFixed(1)}px)`};
+addEventListener('scroll',()=>requestAnimationFrame(adMove),{passive:true});adMove();
+/* ending: copy email, live Nashville time */
+$('#copyEm').addEventListener('click',e=>{const b=e.currentTarget;navigator.clipboard.writeText('wadiaa.belbach123@gmail.com').then(()=>{b.textContent='Copied'},()=>{b.textContent='Select it above'}).finally(()=>setTimeout(()=>{b.textContent='Copy'},1800))});
+/* credits fade in one at a time */
+const cards=[...document.querySelectorAll('.card')];
+const cardFade=()=>{const vh=innerHeight;for(const c of cards){const r=c.getBoundingClientRect(),d=Math.abs(r.top+r.height/2-vh/2)/(vh*.42),o=reduce?1:Math.max(0,1-d*d);c.style.opacity=o.toFixed(3);c.style.transform=`translateY(${reduce?0:((r.top+r.height/2-vh/2)*.06).toFixed(1)}px)`}};
+addEventListener('scroll',()=>requestAnimationFrame(cardFade),{passive:true});cardFade();
+
+/* lightbox */
+const sets={il:['interlude-01','interlude-02','interlude-03','interlude-04','interlude-05'],s8:['820-01','820-03','820-04'],
+  be:['belle-01','belle-02','belle-03','belle-04'],fb:['fb-07', 'fb-01', 'fb-05', 'fb-06', 'fb-02', 'fb-04', 'sch-03', 'sch-02', 'sch-05'],rn:['whr-03','whr-01','whr-02'],ed:['ed-01','ed-02','ed-03','ed-04','ed-05'],bt:['bts-01', 'bts-06', 'bts-02', 'bts-03', 'bts-04', 'bts-05', 'bts-07', 'sch-01']};
+let cur=[],ci=0;const lb=$('#lb'),lbi=$('#lbi');
+const show=()=>{lbi.src='media/'+cur[ci]+'.jpg'};
+document.querySelectorAll('.fr').forEach(f=>f.addEventListener('click',()=>{cur=sets[f.dataset.set];ci=+f.dataset.i;show();lb.classList.add('open');$('#lbx').focus()}));
+const close=()=>lb.classList.remove('open');
+$('#lbx').onclick=close;$('#lbp').onclick=()=>{ci=(ci-1+cur.length)%cur.length;show()};$('#lbn').onclick=()=>{ci=(ci+1)%cur.length;show()};
+lb.addEventListener('click',e=>{if(e.target===lb)close()});
+addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')$('#lbp').click();if(e.key==='ArrowRight')$('#lbn').click()});
+
+/* viewfinder cursor */
+if(fine&&!reduce){const vf=$('#vf');let x=0,y=0,cx=0,cy=0;
+  addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY});
+  document.addEventListener('pointerover',e=>vf.classList.toggle('on',!!e.target.closest('.fr')));
+  const mv=()=>{cx+=(x-cx)*.22;cy+=(y-cy)*.22;vf.style.transform=`translate(${cx}px,${cy}px)`;requestAnimationFrame(mv)};mv()}
+}
+</script>
+</body>
+</html>
