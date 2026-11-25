@@ -409,7 +409,7 @@ body.cut .lbx{animation:lbx 1.3s cubic-bezier(.65,0,.25,1)}
 <audio id="amb2" src="media/amb-warm.mp3" loop preload="none"></audio>
 
 <header class="cold" id="top" data-w="interlude">
-  <video id="hero" src="media/interlude-hero.mp4" poster="media/interlude-05.jpg" muted loop playsinline preload="auto"></video>
+  <video id="hero" poster="media/interlude-05.jpg" muted loop playsinline preload="auto"><source src="media/interlude-hero-m.mp4" media="(max-width:820px)" type="video/mp4"><source src="media/interlude-hero.mp4" type="video/mp4"></video>
   <div class="nm">Wadia Belbach</div>
   <div class="hint"><button id="wsnd0">turn sound on</button>&nbsp;&nbsp;·&nbsp;&nbsp;scroll</div>
 </header>
@@ -442,7 +442,7 @@ body.cut .lbx{animation:lbx 1.3s cubic-bezier(.65,0,.25,1)}
 <section id="s820" data-w="s820">
   <div class="sunw" id="sunw">
     <div class="suns">
-      <video id="sun" src="media/820-sun.mp4" muted loop playsinline preload="auto"></video>
+      <video id="sun" muted loop playsinline preload="none"><source src="media/820-sun-m.mp4" media="(max-width:820px)" type="video/mp4"><source src="media/820-sun.mp4" type="video/mp4"></video>
       <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center" id="premise"><p class="premise" style="margin-bottom:0">If the sun were to suddenly explode, the Earth would not be affected for approximately eight minutes and twenty seconds.</p><button class="wsnd" id="wsnd">Watch with sound</button></div>
       <div class="big820" id="big820">00:08:20</div>
     </div>
@@ -467,7 +467,7 @@ body.cut .lbx{animation:lbx 1.3s cubic-bezier(.65,0,.25,1)}
   <div class="bi-sun" id="bisun" aria-hidden="true"></div>
   <div class="bi-open">
     <h2>Belle Isle</h2><div class="wl"><a class="watch" href="https://www.instagram.com/p/DZSiz7PRei5/" target="_blank" rel="noopener">Watch the film<span aria-hidden="true">&nbsp;↗</span></a></div>
-    <div class="gate"><video class="inview" src="media/belle-loop.mp4" poster="media/belle-01.jpg" muted loop playsinline preload="none"></video></div>
+    <div class="gate"><video class="inview" poster="media/belle-01.jpg" muted loop playsinline preload="none"><source src="media/belle-loop-m.mp4" media="(max-width:820px)" type="video/mp4"><source src="media/belle-loop.mp4" type="video/mp4"></video></div>
   </div>
   <div class="drift" id="drift">
     <div class="drift-s">
@@ -490,7 +490,7 @@ body.cut .lbx{animation:lbx 1.3s cubic-bezier(.65,0,.25,1)}
 
 <section class="fbw" id="football" data-w="fb">
   <div class="fb-open">
-    <video id="fbv" class="inview" src="media/fb-loop.mp4" poster="media/fb-04.jpg" muted loop playsinline preload="none"></video>
+    <video id="fbv" class="inview" poster="media/fb-04.jpg" muted loop playsinline preload="none"><source src="media/fb-loop-m.mp4" media="(max-width:820px)" type="video/mp4"><source src="media/fb-loop.mp4" type="video/mp4"></video>
     <div class="fb-t">Vanderbilt<span>Football</span></div>
   </div>
   <div class="ticker" aria-hidden="true"><div>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Anchor down<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Vanderbilt Athletics<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg>Videographer, editor, colorist<svg class="anc" viewBox="0 0 64 64" aria-hidden="true"><use href="#anc"/></svg></div></div>
@@ -628,7 +628,7 @@ let detonated=false,lastLeft=-1;
 const detonate=()=>{detonated=true;const lag=boomSnd();setTimeout(()=>{const b=$('#boom');b.classList.remove('go');void b.offsetWidth;if(!reduce){b.classList.add('go');document.querySelector('main').classList.remove('shake');void document.body.offsetWidth;document.querySelector('main').classList.add('shake')}},lag)};
 
 /* cold open */
-const hero=$('#hero'),cold=$('.cold');
+const hero=$('#hero'),cold=$('.cold');{const sv=document.getElementById('sun');let ld=false;const go=()=>{if(ld||!sv)return;ld=true;sv.preload='auto';if(sv.readyState===0&&sv.paused)sv.load()};hero.addEventListener('canplaythrough',go,{once:true});setTimeout(go,4000)}
 const start=()=>{cold.classList.add('go');if(!reduce){hero.play().then(()=>hero.classList.add('on')).catch(()=>hero.classList.add('on'))}else hero.classList.add('on')};
 if(hero.readyState>=2)start();else{hero.addEventListener('loadeddata',start,{once:true});setTimeout(start,1800)}
 
