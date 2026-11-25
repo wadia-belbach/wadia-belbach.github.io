@@ -357,6 +357,17 @@ body.cut .lbx{animation:lbx 1.3s cubic-bezier(.65,0,.25,1)}
  .role{display:none}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.fr img{filter:none;transform:none;opacity:1}html{scroll-behavior:auto}}
+
+/* watch links */
+.watch{display:inline-block;margin-top:16px;font:500 11px/1 Inter,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:5px;opacity:.7;transition:opacity .3s,letter-spacing .4s;cursor:pointer}
+.watch:hover,.watch:focus-visible{opacity:1;letter-spacing:.3em}
+.il .watch{margin-top:18px}
+.bi-open .wl{position:relative;z-index:2;max-width:1240px;margin:calc(-1*clamp(10px,1.6vw,26px)) auto clamp(24px,3vw,40px);color:#16323b}
+.bi-open .watch{margin-top:0}
+.rn-head .watch{margin-top:26px;font:italic 400 clamp(16px,1.4vw,19px)/1 "Cormorant Garamond",Georgia,serif;letter-spacing:.04em;text-transform:none}
+.rn-head .watch:hover{letter-spacing:.1em}
+.ed .wl{margin:calc(-1*clamp(30px,4vw,50px)) 0 clamp(50px,7vw,90px)}
+.ed .watch{margin-top:0;font:600 11px/1 Archivo,Inter,sans-serif;letter-spacing:.24em}
 </style>
 </head>
 <body data-w="interlude">
@@ -384,7 +395,7 @@ body.cut .lbx{animation:lbx 1.3s cubic-bezier(.65,0,.25,1)}
   <div class="wrap">
     <div class="il-head">
       <h2>Interlude</h2>
-      <div class="sub"><b>MUSIC VIDEO · 2026</b>SCH, Jour d'octobre</div>
+      <div class="sub"><b>MUSIC VIDEO · 2026</b>SCH, Jour d'octobre<br><a class="watch" href="https://www.instagram.com/p/DgGUbm-vXS4/" target="_blank" rel="noopener">Watch the film<span aria-hidden="true">&nbsp;↗</span></a></div>
     </div>
     <div class="il-g">
       <button class="fr a" data-set="il" data-i="3" aria-label="Open frame"><img src="media/interlude-04.jpg" alt="City skyline at dusk from a hill"></button>
@@ -431,7 +442,7 @@ body.cut .lbx{animation:lbx 1.3s cubic-bezier(.65,0,.25,1)}
 <section class="bi" id="belle" data-w="belle">
   <div class="bi-sun" id="bisun" aria-hidden="true"></div>
   <div class="bi-open">
-    <h2>Belle Isle</h2>
+    <h2>Belle Isle</h2><div class="wl"><a class="watch" href="https://www.instagram.com/p/DZSiz7PRei5/" target="_blank" rel="noopener">Watch the film<span aria-hidden="true">&nbsp;↗</span></a></div>
     <div class="gate"><video class="inview" src="media/belle-loop.mp4" poster="media/belle-01.jpg" muted loop playsinline preload="none"></video></div>
   </div>
   <div class="drift" id="drift">
@@ -480,7 +491,7 @@ body.cut .lbx{animation:lbx 1.3s cubic-bezier(.65,0,.25,1)}
 
 <section class="rn" id="renouvelle" data-w="whr">
   <div class="wrap">
-    <div class="rn-head"><h2>White Horse Rider</h2><p>Single cover for Renouvelle</p></div>
+    <div class="rn-head"><h2>White Horse Rider</h2><p>Single cover for Renouvelle</p><a class="watch" href="https://open.spotify.com/album/6WehaMladj9szCKqjcQ8UW" target="_blank" rel="noopener">Listen on Spotify<span aria-hidden="true">&nbsp;↗</span></a></div>
     <div class="rn-g">
       <div class="a veil"><button class="fr" data-set="rn" data-i="0" aria-label="Open frame"><img src="media/whr-03.jpg?v=2" alt="A figure in white walking in front of a columned building, looking away" loading="lazy"></button></div>
       <div class="b veil"><button class="fr" data-set="rn" data-i="1" aria-label="Open frame"><img src="media/whr-01.jpg" alt="Portrait in white in the snow, columned building behind" loading="lazy"></button></div>
@@ -498,7 +509,7 @@ body.cut .lbx{animation:lbx 1.3s cubic-bezier(.65,0,.25,1)}
   <div class="wrap">
     <div class="ed-bar"><span>Photography</span><span>Lifestyle and travel</span></div>
     <h2>Photography</h2>
-    <p class="dek">Lifestyle and travel photography for a fashion blogger.</p>
+    <p class="dek">Lifestyle and travel photography for a fashion blogger.</p><p class="wl"><a class="watch" href="https://www.facebook.com/ASIWBEL" target="_blank" rel="noopener">See the blog<span aria-hidden="true">&nbsp;↗</span></a></p>
     <div class="spread">
       <figure class="s1"><button class="fr" data-set="ed" data-i="0" aria-label="Open frame" style="aspect-ratio:4/5"><img src="media/ed-01.jpg" alt="Lifestyle and travel photograph 1" loading="lazy"></button></figure>
       <figure class="s2"><button class="fr" data-set="ed" data-i="1" aria-label="Open frame" style="aspect-ratio:4/5"><img src="media/ed-02.jpg" alt="Lifestyle and travel photograph 2" loading="lazy"></button></figure>
